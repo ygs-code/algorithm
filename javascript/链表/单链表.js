@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-25 17:32:09
- * @LastEditTime: 2021-10-25 18:01:38
+ * @LastEditTime: 2021-10-15 16:25:33
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /algorithm/javascript/链表/单链表.js
@@ -15,7 +15,7 @@ function LinkedList() {
   this.head = new Node("head");
 }
 LinkedList.prototype = {
-    //插入链表
+  //插入链表
   insert(element, newElement) {
     const currentNode = this.find(element);
     const newNode = new Node(newElement);
@@ -30,7 +30,7 @@ LinkedList.prototype = {
     }
     return currentNode;
   },
-//  查找链表上一项
+  //  查找链表上一项
   findPrevious(element) {
     let currentNode = this.head;
     while (currentNode.next && currentNode.next.element != element) {
@@ -46,10 +46,11 @@ LinkedList.prototype = {
     }
   },
   // 循环链表
-  display() {
+  display(callback = () => {}) {
     let currentNode = this.head;
     while (currentNode) {
       console.log("currentNode=", currentNode);
+      callback(currentNode);
       currentNode = currentNode.next;
     }
   },
