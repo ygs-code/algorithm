@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-09 14:24:29
- * @LastEditTime: 2021-10-19 16:50:45
+ * @LastEditTime: 2021-10-19 18:03:14
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /算法/二叉树查找/非递归法.js
@@ -132,7 +132,10 @@ BST.prototype = {
         node = node.left;
       } else {
         //同时具有左右子树
+        //如果待删除节点包含两个子节点， 正确的做法有两种：要么查找待删除节点左子树 上的最大值， 要么查找其右子树上的最小值 
+        // 查找左边最大值
         let prevNode = node.left;
+        //左边最大值
         while (prevNode.right) {
           //寻找不大于当前结点值的最大结点值
           prevNode = prevNode.right;
