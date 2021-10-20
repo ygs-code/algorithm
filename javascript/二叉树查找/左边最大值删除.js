@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-09 14:24:29
- * @LastEditTime: 2021-10-19 18:03:14
+ * @LastEditTime: 2021-10-20 09:45:07
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /算法/二叉树查找/非递归法.js
@@ -78,24 +78,24 @@ BST.prototype = {
     }
   },
   // 查找最小值
-  getMin() {
-    let currentNode = this.root;
+  getMin(node) {
+    let currentNode = node || this.root;
     while (currentNode.left) {
       currentNode = currentNode.left;
     }
     return currentNode.data;
   },
   // 查找最大值
-  getMax() {
-    let currentNode = this.root;
+  getMax(node) {
+    let currentNode = node || this.root;
     while (currentNode.right) {
       currentNode = currentNode.right;
     }
     return currentNode.data;
   },
   // 查询节点
-  find(data) {
-    let currentNode = this.root;
+  find(data, node) {
+    let currentNode = node || this.root;
     while (currentNode) {
       if (currentNode.data == data) {
         break;
@@ -107,6 +107,7 @@ BST.prototype = {
     }
     return currentNode;
   },
+  // 递归删除
   deleteNode(node, data) {
     if (!node) {
       console.log("删除失败");
@@ -132,16 +133,11 @@ BST.prototype = {
         node = node.left;
       } else {
         //同时具有左右子树
-        //如果待删除节点包含两个子节点， 正确的做法有两种：要么查找待删除节点左子树 上的最大值， 要么查找其右子树上的最小值 
+        //如果待删除节点包含两个子节点， 正确的做法有两种：要么查找待删除节点左子树 上的最大值， 要么查找其右子树上的最小值
         // 查找左边最大值
-        let prevNode = node.left;
-        //左边最大值
-        while (prevNode.right) {
-          //寻找不大于当前结点值的最大结点值
-          prevNode = prevNode.right;
-        }
-        node.data = prevNode.data; //替换值
-        node.left = this.deleteNode(node.left, prevNode.data); //递归左子树，删除重复值的结点
+        let prevNodeData = this.getMax(node.left);
+        node.data = prevNodeData; //替换值
+        node.left = this.deleteNode(node.left, prevNodeData); //递归左子树，删除重复值的结点
       }
     }
     return node;
@@ -155,7 +151,6 @@ for (var i = 0; i < nums.length; i++) {
   bst.insert(nums[i]);
 }
 
-console.log('bst1=',bst);
-console.log(bst.deleteNode(bst.root,4));
-console.log('bst2=',bst);
-
+console.log("bst1=", bst);
+console.log(bst.deleteNode(bst.root, 4));
+console.log("bst2=", bst);

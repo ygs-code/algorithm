@@ -1,11 +1,12 @@
 /*
  * @Author: your name
  * @Date: 2021-10-09 14:24:29
- * @LastEditTime: 2021-10-19 16:12:01
+ * @LastEditTime: 2021-10-20 10:37:47
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /算法/二叉树查找/非递归法.js
  */
+
 function Node(data, left, right) {
   this.data = data;
   this.left = left;
@@ -78,24 +79,24 @@ BST.prototype = {
     }
   },
   // 查找最小值
-  getMin() {
-    let currentNode = this.root;
+  getMin(node) {
+    let currentNode = node || this.root;
     while (currentNode.left) {
       currentNode = currentNode.left;
     }
     return currentNode.data;
   },
   // 查找最大值
-  getMax() {
-    let currentNode = this.root;
+  getMax(node) {
+    let currentNode = node || this.root;
     while (currentNode.right) {
       currentNode = currentNode.right;
     }
     return currentNode.data;
   },
   // 查询节点
-  find(data) {
-    let currentNode = this.root;
+  find(data, node) {
+    let currentNode = node || this.root;
     while (currentNode) {
       if (currentNode.data == data) {
         break;
