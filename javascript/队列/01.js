@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-23 17:09:53
- * @LastEditTime: 2021-10-23 17:16:23
+ * @LastEditTime: 2021-10-25 15:11:50
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /算法/队列/01.js
@@ -12,7 +12,7 @@
  插入操作也叫做入 队，删除操作也叫做出队。入队操作在队尾插入新元素，出队操作删除队头的元素
  */
 
-function Queue() {
+ function Queue() {
   this.dataStore = [];
   this.length = 0;
 }
@@ -22,17 +22,21 @@ Queue.prototype = {
   push(element) {
     this.dataStore[this.length] = element;
     this.length++;
+    return element
   },
   // 删除数据
   shift() {
+    
     if (!this.length) {
       return false;
     }
+    let firstChild = this.dataStore[0]
     this.length--;
     let arr = new Array(this.length);
-    for (let index = 0; index < this.length; index++) {
-      arr[index] = this.dataStore[index];
+    for (let index = 1; index < this.length; index++) {
+      arr[index-1] = this.dataStore[index];
     }
     this.dataStore = arr;
+    return firstChild;
   },
 };
