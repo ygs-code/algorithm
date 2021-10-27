@@ -423,3 +423,192 @@ else if(node.left == null ) {
 
 
 
+#### JavaScript算法-深度优先搜索(DFS)/广度优先搜索(BFS)
+
+##### 深度优先搜索(DFS)
+
+事实上，深度优先搜索属于图算法的一种，英文缩写为DFS即Depth First Search.其过程简要来说是对每一个可能的分支路径深入到不能再深入为止，而且每个节点只能访问一次.
+
+###### 遍历过程
+
+假定现在有个如下图的二叉树,深度优先搜索1开始遍历子节点,然后从左边树纵深遍历,直到元素不存在子节点,然后回溯,继续遍历子节点,直至左边全部便利完成,回溯到根开始遍历右边树节点.最后遍历顺序即:1->2->3->4->5->6.
+
+###### 实现原理
+
+深度优先搜索是基于栈实现的,Stack 先入后出(FILO)
+
+这边我们仅引用栈的api, 结合栈的特性,使用JavaScript语法可用Array来表示栈,结合Array的shift(),unshift()方法.
+
+假设有一个[ ], 我们把1,2,3通过unshift()放入[3, 2, 1], 通过shift()取出为3, 2, 1 ,模拟栈的特性.
+
+图例
+
+![img](./10.jpg)
+
+如上图二叉树,通过栈来实现深度优先搜索
+
+| 栈      |              进栈 | 出栈  |
+| :------ | ----------------: | :---: |
+| 1       |             1进栈 | 1出栈 |
+| 2, 5    |  1的子节点5,2进栈 | 2出栈 |
+| 3, 4, 5 | 2的子节点4,3进栈, | 3出栈 |
+| 4, 5    |       3没有子节点 | 4出栈 |
+| 5       |       4没有子节点 | 5出栈 |
+| 6       |      5子节点6进栈 | 6出栈 |
+
+
+算法实现
+
+```
+//节点构造函数
+function Node(key){
+    this.children = []  //不确定当前节点子节点数,使用数组表示
+    this.key = key    //当前节点序号
+}
+ 
+//创建节点
+let n1 = new Node(1),
+    n2 = new Node(2),
+    n3 = new Node(3),
+    n4 = new Node(4),
+    n5 = new Node(5),
+    n6 = new Node(6);
+ 
+//构建数
+n1.children.push(n2, n5)
+n2.children.push(n3, n4)
+n5.children.push(n6)
+ 
+//深度优先搜索算法实现
+function dfs(node){
+    const stack = [node]  //模拟栈
+    while( stack.length > 0){ //栈中存在数据
+        const first = stack.shift();  //从头部获取出栈元素
+        console.log(first.key)  //打印出出栈元素序号
+        first.children.slice().reverse().forEach(  
+            child => stack.unshift(child) //从头部插入进栈元素
+        )
+    }
+}
+ 
+dfs(n1)  // 1,2,3,4,5,6
+```
+
+
+
+##### 广度优先搜索(BFS)
+
+广度优先搜索，其英文全称是Breadth First Search。从算法的观点，所有因为展开节点而得到的子节点都会被加进一个先进先出的队列中。
+
+###### 遍历过程
+
+还以上图二叉树为例,广度优先搜索是对数进行逐层遍历的,先从第一层开始遍历,然后遍历第二层直至没有更多的子节点,顺序可表示为1, 2, 5, 3, 4, 6
+
+###### 实现原理
+
+广度优先搜索是基于队列先进先出（FIFO）的数据结构实现的
+
+JavaScript实现队列,可以通过数组的方法来模拟, 进入队列使用push(), 出列使用shift()
+
+假设有个[], 把1, 2, 3按照队列方式使用, 每次push()后得到[1, 2, 3], 出列使用shift() 得到, 1 -> 2 ->3
+
+图例
+
+![img](./11.jpg)
+
+
+
+
+
+
+
+还是这个熟悉的图,我们使用队列来分析广度优先搜索
+
+| 队列    |              入队列 | 出队列  |
+| :------ | ------------------: | :-----: |
+| 1       |           1进入队列 | 1出队列 |
+| 2, 5    | 1子节点2, 5进入队列 | 2出队列 |
+| 5, 3, 4 | 2子节点3, 4进入队列 | 5出队列 |
+| 3, 4, 6 |    5子节点6进入队列 | 3出队列 |
+| 4, 6    |         3没有子节点 | 4出队列 |
+| 6       |         4没有子节点 | 6出队列 |
+
+
+
+
+ 
+
+算法实现
+
+```
+//节点构造函数
+function Node(key){
+    this.children = [] //用数组来存放子节点
+    this.key = key //当前节点序号
+}
+ 
+//创建节点
+let n1 = new Node(1),
+    n2 = new Node(2),
+    n3 = new Node(3),
+    n4 = new Node(4),
+    n5 = new Node(5),
+    n6 = new Node(6);
+ 
+//构建树
+n1.children.push(n2, n5)
+n2.children.push(n3, n4)
+n5.children.push(n6)
+ 
+//广度优先搜索算法实现
+function bfs(node){
+    const queue = [node] //创建一个队列
+    while(queue.length){ //队列存在元素
+        const first = queue.shift() //先出
+        console.log(first.key) //出列元素序号
+        first.children.forEach(
+            child => queue.push(child) //子节点进入队列
+        )
+    }
+}
+ 
+bfs(n1)  //1,2,5,3,4,6
+```
+
+
+
+###### 递归
+
+其实上述的深度优先搜索的算法运用体现, 就是递归, 递归的原理实现是栈, 它拥有天然的dfs结构.
+
+我们上面运用深度优先搜索实现的算法完全可以用递归来实现,并且更加简洁
+
+```
+//节点构造函数
+function Node(key){
+    this.children = [] //用数组来存放子节点
+    this.key = key //当前节点序号
+}
+ 
+//创建节点
+let n1 = new Node(1),
+    n2 = new Node(2),
+    n3 = new Node(3),
+    n4 = new Node(4),
+    n5 = new Node(5),
+    n6 = new Node(6);
+ 
+//构建树
+n1.children.push(n2, n5)
+n2.children.push(n3, n4)
+n5.children.push(n6)
+ 
+//利用递归实现dfs
+function dfs(node){
+    console.log(node.key)
+    node.children.forEach(dfs)
+}
+  
+dfs(n1)  // 1,2,3,4,5,6
+```
+

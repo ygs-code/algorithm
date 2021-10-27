@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-20 14:10:53
- * @LastEditTime: 2021-10-20 17:33:26
+ * @LastEditTime: 2021-10-27 11:21:39
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /algorithm/javascript/图和图算法/01.js
@@ -45,7 +45,6 @@ Graph.prototype = {
       }
     }
   },
-  toString() {},
   // 递归深度优先搜索
   dfs(v) {
     this.marked[v] = true;
@@ -53,6 +52,7 @@ Graph.prototype = {
     if (this.adj[v] != undefined) {
       console.log("Visited vertex: " + v);
       for (var w of this.adj[v]) {
+        // console.log('w=',w)
         if (!this.marked[w]) {
           this.dfs(w);
         }
@@ -69,3 +69,4 @@ g.addEdge(1, 3);
 g.addEdge(2, 4);
 g.showGraph();
 g.dfs(0);
+console.log('g==',g)

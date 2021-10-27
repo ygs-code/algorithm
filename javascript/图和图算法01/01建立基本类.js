@@ -1,15 +1,12 @@
 /*
  * @Author: your name
  * @Date: 2021-10-20 14:10:53
- * @LastEditTime: 2021-10-20 17:02:29
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-10-27 10:59:49
+ * @LastEditors: your name
  * @Description: In User Settings Edit
- * @FilePath: /algorithm/javascript/图和图算法/01.js
+ * @FilePath: /algorithm/javascript/图和图算法/01建立基本类.js
  */
-// 定点表示
-function Vertex(label) {
-  this.label = label;
-}
+
 
 // 构建图
 function Graph(v) {
@@ -40,23 +37,12 @@ Graph.prototype = {
       }
     }
   },
-  toString() {},
 };
 
-function dfs(v) {
-  this.marked[v] = true;
-  if (this.adj[v] != undefined) {
-    console.log("Visited vertex: " + v);
-  }
-  for (var w in this.adj[v]) {
-    if (!this.marked[w]) {
-      this.dfs(w);
-    }
-  }
-}
 var g = new Graph(5);
 g.addEdge(0, 1);
 g.addEdge(0, 2);
 g.addEdge(1, 3);
 g.addEdge(2, 4);
 g.showGraph();
+

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-20 14:10:53
- * @LastEditTime: 2021-10-20 18:04:01
+ * @LastEditTime: 2021-10-27 10:45:54
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /algorithm/javascript/图和图算法/01.js
@@ -16,7 +16,7 @@ function Graph(v) {
   this.vertices = v;
   this.edges = 0;
   this.adj = [];
-  // this.edgeTo = [];
+  this.edgeTo = [];
   for (var i = 0; i < this.vertices; i++) {
     this.adj[i] = [];
     // this.adj[i].push("");
@@ -70,7 +70,7 @@ Graph.prototype = {
         console.log("Visisted vertex: " + v);
         for (var w of this.adj[v]) {
           if (!this.marked[w]) {
-            // this.edgeTo[w] = v;
+            this.edgeTo[w] = v;
             this.marked[w] = true;
             //添加元素
             queue.push(w);
@@ -78,6 +78,43 @@ Graph.prototype = {
         }
       }
     }
+  },
+  dfsManager(start, end) {
+    let map = this.adj;
+    var min = 9999,
+      path = [],
+      unvisited = [];
+    for (let i = 0; i < 5; i++) {
+      unvisited[i] = true;
+    }
+
+    (function dfs(map, start, end, step) {
+      //unvisited[start] = false  //不重复访问最后的节点
+      if (start === end) {
+        console.log("step:", step);
+        for (let i = 0; i < path.length; i++) {
+          if (path[i] >= 0) {
+            console.log(path[i] + "->");
+          }
+        }
+        if (min > step) {
+          min = step;
+        }
+        return;
+      }
+      unvisited[start] = false; //要重复访问最后的节点
+      let len = map.length;
+
+      for (let i = 0; i < len; i++) {
+        if (map[start][i] === 1 && unvisited[i]) {
+          path.push(i); //记录路径
+          dfs(map, i, end, step + 1);
+          path.pop(); //避免污染其他路径
+        }
+      }
+    })(map, start, end, 0);
+
+    return min;
   },
 };
 
@@ -88,3 +125,6 @@ g.addEdge(1, 3);
 g.addEdge(2, 4);
 g.showGraph();
 g.bfs(0);
+console.log("g===", g);
+
+console.log(g.dfsManager(1, 2));
