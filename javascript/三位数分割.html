@@ -1,0 +1,100 @@
+<!--
+ * @Author: your name
+ * @Date: 2022-01-04 10:46:46
+ * @LastEditTime: 2022-01-04 10:50:23
+ * @LastEditors: Please set LastEditors
+ * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @FilePath: /algorithm/javascript/三位数分割.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //  // 方法一
+      //  function toThousands(num) {
+      //      var result = [ ], counter = 0;
+      //      num = (num || 0).toString().split('');
+      //      for (var i = num.length - 1; i >= 0; i--) {
+      //          counter++;
+      //          result.unshift(num[i]);
+      //          if (!(counter % 3) && i != 0) { result.unshift(','); }
+      //      }
+      //      return result.join('');
+      //  }
+      // 方法二
+      //  function toThousands(num) {
+      //      var result = '', counter = 0;
+      //      num = (num || 0).toString();
+      //      for (var i = num.length - 1; i >= 0; i--) {
+      //          counter++;
+      //          result = num.charAt(i) + result;
+      //          if (!(counter % 3) && i != 0) { result = ',' + result; }
+      //      }
+      //      return result;
+      //  }
+      // 方法三
+      //   function toThousands(num) {
+      //     var num = (num || 0).toString(),
+      //       re = /\d{3}$/,
+      //       result = "";
+      //     while (re.test(num)) {
+      //       result = RegExp.lastMatch + result;
+      //       if (num !== RegExp.lastMatch) {
+      //         result = "," + result;
+      //         num = RegExp.leftContext;
+      //       } else {
+      //         num = "";
+      //         break;
+      //       }
+      //     }
+      //     if (num) {
+      //       result = num + result;
+      //     }
+      //     return result;
+      //   }
+
+      // 方法四
+      function toThousands(num) {
+        var num = (num || 0).toString(),
+          result = "";
+        while (num.length > 3) {
+          result = "," + num.slice(-3) + result;
+          num = num.slice(0, num.length - 3);
+        }
+        if (num) {
+          result = num + result;
+        }
+        return result;
+      }
+
+      // 方法五
+      // function toThousands(num) {
+      //      var num = (num || 0).toString(), temp = num.length % 3;
+      //      switch (temp) {
+      //          case 1:
+      //              num = '00' + num;
+      //              break;
+      //          case 2:
+      //              num = '0' + num;
+      //              break;
+      //      }
+      //      return num.match(/\d{3}/g).join(',').replace(/^0+/, '');
+      //  }
+
+      //   // 方法六
+      // function toThousands(num) {
+      //      return (num || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
+      //  }
+
+      console.log(toThousands(12543.3123123));
+      console.log(toThousands("12543.3123123"));
+      console.log(toThousands(125433123123));
+    </script>
+  </body>
+</html>
