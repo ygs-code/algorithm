@@ -1,10 +1,10 @@
 /*
  * @Author: your name
  * @Date: 2021-10-15 17:38:07
- * @LastEditTime: 2022-01-21 16:52:55
+ * @LastEditTime: 2022-01-24 11:50:01
  * @LastEditors: Yao guan shou
  * @Description: In User Settings Edit
- * @FilePath: /algorithm/javascript/散列/01.js
+ * @FilePath: /algorithm/javascript/散列/02.js
  */
 function HashTable() {
   this.table = new Array(137);
@@ -26,8 +26,20 @@ HashTable.prototype = {
       }
     }
   },
+  betterHash(string) {
+    const H = 37;
+    var total = 0;
+    for (var i = 0; i < string.length; ++i) {
+      total += H * total + string.charCodeAt(i);
+    }
+    total = total % this.table.length;
+    if (total < 0) {
+      total += this.table.length - 1;
+    }
+    return console.log(total);
+  },
   put(data) {
-    var pos = this.simpleHash(data);
+    var pos = this.betterHash(data);
     this.table[pos] = data;
   },
 };
