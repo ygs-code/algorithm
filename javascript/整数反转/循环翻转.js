@@ -28,19 +28,22 @@
         来源：力扣（LeetCode）
         著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
        */
+// 121
+// 1
+// 1+2+1
 const reverse = (x) => {
-  let a,
-    sum = 0,
-    max = Math.pow(2, 31) - 1,
-    min = -max - 1;
-  if (x > max || x < min) return 0;
-  while (x !== 0) {
-    a = x % 10;
-    x = parseInt(x / 10);
-    sum = sum * 10 + a;
-  }
-  if (sum > max || sum < min) return 0;
-  return sum;
+    let a,
+        sum = 0,
+        max = Math.pow(2, 31) - 1,
+        min = -max - 1;
+    if (x > max || x < min) return 0;
+    while (x !== 0) {
+        a = x % 10;
+        x = parseInt(x / 10);
+        sum = sum * 10 + a;
+    }
+    if (sum > max || sum < min) return 0;
+    return sum;
 };
 
-console.log(reverse(1534236469));
+console.log(reverse(1534236));

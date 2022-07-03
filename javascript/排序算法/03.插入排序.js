@@ -18,30 +18,30 @@
     arr[preIndex + 1] = current;  此时 第一个15被替换掉 则数据结构出现 为 [1,  15, 88, 94, 55, 76, 21, 39];
  */
 var example = [94, 15, 88, 1, 55, 76, 21, 39];
-function Insertion(arr) {
-  // 获取数组长度
-  let len = arr.length;
-  let preIndex, // 上一次索引
-    // 当前元素
-    current;
-  // 循环
-  for (let i = 1; i < len; i++) {
-    preIndex = i - 1;
-    // 当前
-    current = arr[i];
-    console.log("i=", i);
-    while (preIndex >= 0 && current < arr[preIndex]) {
-      console.log("preIndex=", preIndex);
-      console.log(" arr[preIndex]=", arr[preIndex]);
-      console.log(" arr[preIndex + 1] =", arr[preIndex + 1]);
-      arr[preIndex + 1] = arr[preIndex];
 
-      preIndex--;
+function Insertion(arr) {
+    // 获取数组长度
+    let len = arr.length;
+    let preIndex, // 上一次索引
+        // 当前元素
+        current;
+    // 循环
+    for (let i = 1; i < len; i++) {
+        preIndex = i - 1;
+        // 当前
+        current = arr[i];
+        console.log("i=", i);
+        while (preIndex >= 0 && current < arr[preIndex]) {
+            console.log("preIndex=", preIndex);
+            console.log(" arr[preIndex]=", arr[preIndex]);
+            console.log(" arr[preIndex + 1] =", arr[preIndex + 1]);
+            arr[preIndex + 1] = arr[preIndex];
+            preIndex--;
+        }
+        arr[preIndex + 1] = current;
+        console.log("arr=", arr);
     }
-    arr[preIndex + 1] = current;
-    console.log("arr=", arr);
-  }
-  return arr;
+    return arr;
 }
 
 console.log(Insertion(example));
